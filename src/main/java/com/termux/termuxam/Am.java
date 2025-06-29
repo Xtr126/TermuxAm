@@ -25,6 +25,7 @@ import android.content.IIntentReceiver;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.os.Process;
 import android.os.SystemClock;
 import android.util.AndroidException;
@@ -103,6 +104,13 @@ public class Am extends BaseCommand {
     private Integer mUserId;
     private String mReceiverPermission;
     private boolean mCheckDrawOverAppsPermissions = false;
+    private final Parcelable extra;
+    private final String extraKey;
+
+    public Am(Parcelable extra, String extraKey) {
+        this.extra = extra;
+        this.extraKey = extraKey;
+    }
 
     /*
     private String mProfileFile;
@@ -117,7 +125,7 @@ public class Am extends BaseCommand {
      * @param args The command-line arguments
      */
     public static void main(String[] args) {
-        Integer exitCode = new Am().run(args);
+        Integer exitCode = new Am(null, null).run(args);
         // If command finished, then exit with exit code, otherwise let command waiting thread to call exit itself.
         if (exitCode != null)
             System.exit(parseExitCode(exitCode));
@@ -734,7 +742,7 @@ public class Am extends BaseCommand {
 
     private int runStart() throws Exception {
         Intent intent = makeIntent();
-
+        if (extra != null) intent.putExtra(extraKey, extra);
         if (mUserId == null || mUserId == USER_ALL || mUserId == USER_NULL) {
             System.err.println("Error: Can't start activity with user" +
                     " '" + (mUserId != null && mUserId == USER_ALL ? "all" : mUserId) + "'");

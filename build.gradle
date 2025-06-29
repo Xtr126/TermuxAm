@@ -1,10 +1,9 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 
 android {
     namespace "com.termux.termuxam"
-    compileSdkVersion 33
+    compileSdkVersion 35
     defaultConfig {
-        applicationId "com.termux.termuxam"
         minSdkVersion 21
         // Note: targetSdkVersion affects only tests,
         //       normally, even though this is packaged as apk,
@@ -15,7 +14,7 @@ android {
         versionCode 1
         versionName "0.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
+        buildFeatures.buildConfig = true
         buildConfigField "String", "TERMUX_PACKAGE_NAME", "\"com.termux\""
     }
 
