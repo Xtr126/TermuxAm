@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 
 android {
     namespace "com.termux.termuxam"
-    compileSdkVersion 35
+    compileSdkVersion 36
     defaultConfig {
         minSdkVersion 21
         // Note: targetSdkVersion affects only tests,
@@ -11,8 +11,6 @@ android {
         //       targetSdkVersion this must be < 28 because this application accesses hidden apis
         //noinspection ExpiredTargetSdkVersion,OldTargetApi
         targetSdkVersion 27
-        versionCode 1
-        versionName "0.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildFeatures.buildConfig = true
         buildConfigField "String", "TERMUX_PACKAGE_NAME", "\"com.termux\""
